@@ -1,29 +1,42 @@
 import RPi.GPIO as GPIO
 
 #红外线接口
-Infra_back = 23
-Infra_left  = 5
-Infra_front  = 24
-Infra_right = 6
+infraFront = 24
+infraBack  = 23
+infraLeft  = 5
+infraRight = 6
+#12前左侧 19前右侧
+infraLeftSide = 12
+infraRightSide = 19
+
 
 #初始化红外线端口
-def init_infra():
-    GPIO.setup(Infra_front, GPIO.IN)
-    GPIO.setup(Infra_left, GPIO.IN)
-    GPIO.setup(Infra_back, GPIO.IN)
-    GPIO.setup(Infra_right, GPIO.IN)
+def initInfra():
+    GPIO.setup(infraFront, GPIO.IN)
+    GPIO.setup(infraLeft,  GPIO.IN)
+    GPIO.setup(infraBack,  GPIO.IN)
+    GPIO.setup(infraRight, GPIO.IN)
+    GPIO.setup(infraLeftSide, GPIO.IN) 
+    GPIO.setup(infraRightSide, GPIO.IN) 
+    
 
 #获取红外输入
 def InfraControl():
     vector = []
-    in_F = GPIO.input(Infra_front)
-    in_L = GPIO.input(Infra_left)
-    in_B = GPIO.input(Infra_back)
-    in_R = GPIO.input(Infra_right)
-    vector.extend(str(in_F))
-    vector.extend(str(in_L))    
-    vector.extend(str(in_B))
-    vector.extend(str(in_R))
+    inF = GPIO.input(infraFront)
+    inL = GPIO.input(infraLeft)
+    inB = GPIO.input(infraBack)
+    inR = GPIO.input(infraRight)
+    inLS = GPIO.input(infraLeftSide)
+    inRS = GPIO.input(infraRightSide) 
+    vector.extend(str(inF))
+    vector.extend(str(inL))    
+    vector.extend(str(inB))
+    vector.extend(str(inR))
+    vector.extend(str(inLS))
+    vector.extend(str(inRS))
     for i in vector:
         print(i)
 
+#initInfra()
+#InfraControl
