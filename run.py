@@ -1,54 +1,53 @@
 import tkinter as tk
 from car.motor.motor_ctl import *
 from car.infra.infraControl import *
-from car.algh import *
+from car.algo import *
 
 
 #待添加
     #LED交互
-    #语音
-    #树梅派开机关机按钮
+    #提示音完善
     #电机通电开关
-
-#路径规划主算法
+    #地图建立算法
+    #路径规划主算法
 def FloodFill():
     pass
  
 #根据键盘输入使小车做出相应运动
 #利用tkinter得到键盘输入
-def key_input(event):
+def keyInput(event):
     print("pressed",repr(event.char))
     key_press = event.char
-    print(key_press.lower())
+    print(keyPress.lower())
 
-    if key_press.lower() == 'w':
+    if keyPress.lower() == 'w':
         up()
-    elif key_press.lower() == 's':
+    elif keyPress.lower() == 's':
         down()
-    elif key_press.lower() == 't':      #停止按钮
+    elif keyPress.lower() == 't':      #停止按钮
         stop()
-    elif key_press.lower() == 'e':
-        turn_right1()
-    elif key_press.lower() == 'c':
-        turn_right2()
-    elif key_press.lower() == 'q':
-        turn_left1()
-    elif key_press.lower() == 'z':
-        turn_left2()
-    elif key_press.lower() == 'a':
+    elif keyPress.lower() == 'e':
+        turnRight1()
+    elif keyPress.lower() == 'c':
+        turnRight2()
+    elif keyPress.lower() == 'q':
+        turnLeft1()
+    elif keyPress.lower() == 'z':
+        turnLeft2()
+    elif keyPress.lower() == 'a':
         CW()
-    elif key_press.lower() == 'd':
+    elif keyPress.lower() == 'd':
         CCW()
-    elif key_press.lower() == 'm':
+    elif keyPress.lower() == 'm':
         simpleGo()    
-    elif key_press.lower() == '\x1b':   #退出按钮
+    elif keyPress.lower() == '\x1b':   #退出按钮
         exit()
 
 init()
-init_infra()
+initInfra()
 
 command = tk.Tk()
-command.bind('<KeyPress>',key_input)
+command.bind('<KeyPress>',keyInput)
 InfraControl()
 command.mainloop()
 
