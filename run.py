@@ -44,11 +44,7 @@ def keyInput():
 
 init()
 initInfra()
-
-#command = tk.Tk()
-#command.bind('<KeyPress>',keyInput)
 InfraControl()
-#command.mainloop()
 while True:
     keyInput()
 
