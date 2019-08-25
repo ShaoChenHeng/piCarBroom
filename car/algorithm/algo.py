@@ -1,13 +1,13 @@
 from car.infra.infraControl import *
 from car.motor.motor_ctl import *
-import tkinter as tk
+from car.keyboard.keyboardInput import *
 
 def simpleGo():
     n = 20
     cal = 0
-
-    while ( n > 0 ):
-
+    keyPress = ''
+    while ( n > 0 and keyPress != 't'):
+        keyPress = kbhit()
         inF = GPIO.input(infraFront)
         inL = GPIO.input(infraLeft)
         inB = GPIO.input(infraBack)
@@ -33,7 +33,7 @@ def simpleGo():
                 time.sleep(0.2)
             n = n - 1
             continue
-        if ( inL == GPIO.LOW & inR == GPIO.LOW):
+        if ( inL == GPIO.LOW and inR == GPIO.LOW):
             for i in range(0,20):
                 back
                 pause()
