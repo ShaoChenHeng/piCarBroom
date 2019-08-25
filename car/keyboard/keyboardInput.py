@@ -1,33 +1,34 @@
 import tkinter as tk
-from car.algorithm.algo import *
+import select
+import sys
+import time
+import os
+import termios
 from car.motor.motor_ctl import *
- 
-#根据键盘输入使小车做出相应运动
-#利用tkinter得到键盘输入
-def keyInput(event):
-    print("pressed",repr(event.char))
-    keyPress = event.char
-    print(keyPress.lower())
+# 别说理解程序了，注释我都理解不了。 代码网上找的。
+# 功能是实现非阻塞输入，kbhit()功能类似 windows下c的kbhit()
 
-    if keyPress.lower() == 'w':
-        up()
-    elif keyPress.lower() == 's':
-        down()
-    elif keyPress.lower() == 't':      #停止按钮
-        stop()
-    elif keyPress.lower() == 'e':
-        turnRight1()
-    elif keyPress.lower() == 'c':
-        turnRight2()
-    elif keyPress.lower() == 'q':
-        turnLeft1()
-    elif keyPress.lower() == 'z':
-        turnLeft2()
-    elif keyPress.lower() == 'a':
-        CW()
-    elif keyPress.lower() == 'd':
-        CCW()
-    elif keyPress.lower() == 'm':
-        simpleGo()    
-    elif keyPress.lower() == '\x1b':   #退出按钮
-        exit()
+
+def kbhit():
+    # 获取标准输入的描述符
+    fd = sys.stdin.fileno()
+    r = select.select([sys.stdin],[],[],0.01)
+    rcode = ''
+    if len(r[0]) >0:
+        rcode  = sys.stdin.read(1)
+    return rcode
+
+def inputInit():
+    fd = sys.stdin.fileno()
+    # 获取标准输入(终端)的设置
+    old_settings = termios.tcgetattr(fd)
+    new_settings = old_settings
+    #new_settings[3] = new_settings[3] & ~termios.ISIG
+    new_settings[3] = new_settings[3] & ~termios.ICANON
+    new_settings[3] = new_settings[3] & ~termios.ECHONL
+    # print ('old setting %s'%(repr(old_settings)))
+    termios.tcsetattr(fd,termios.TCSAFLUSH,new_settings)
+
+
+
+inputInit()
