@@ -14,7 +14,6 @@ IN4 = 22 #rightside +
 
 #使能接口
 enable = 20
-
 speed  = 25
 GPIO.setup(enable, GPIO.OUT)
 motor = GPIO.PWM(enable,100)
@@ -42,7 +41,7 @@ def up():
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN1, GPIO.LOW)
     time.sleep(0.1)
-    motor.ChangeDutyCycle(25)
+    motor.ChangeDutyCycle(40)
     pause()
     #GPIO.output(IN1,GPIO.LOW)
 
@@ -71,7 +70,7 @@ def down():
     GPIO.output(IN2, GPIO.LOW)
     GPIO.output(IN3, GPIO.HIGH)
     GPIO.output(IN1, GPIO.HIGH)
-    motor.ChangeDutyCycle(25)
+    motor.ChangeDutyCycle(55)
     time.sleep(0.1)
     pause()
 
@@ -80,7 +79,7 @@ def turnRight1():
     GPIO.output(IN2, GPIO.LOW)
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN4, GPIO.HIGH)
-    motor.ChangeDutyCycle(25)
+    motor.ChangeDutyCycle(35)
     time.sleep(0.1)
     pause()
 
@@ -89,7 +88,7 @@ def turnRight2():
     GPIO.output(IN2, GPIO.LOW)
     GPIO.output(IN3, GPIO.HIGH)
     GPIO.output(IN4, GPIO.LOW)
-    motor.ChangeDutyCycle(25)
+    motor.ChangeDutyCycle(35)
     time.sleep(0.1)
     pause()
 
@@ -98,7 +97,7 @@ def turnLeft1():
     GPIO.output(IN2, GPIO.HIGH)
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN4, GPIO.LOW)
-    motor.ChangeDutyCycle(25)
+    motor.ChangeDutyCycle(35)
     time.sleep(0.1)
     pause()
 
@@ -107,7 +106,7 @@ def turnLeft2():
     GPIO.output(IN2, GPIO.LOW)
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN4, GPIO.LOW)
-    motor.ChangeDutyCycle(25)
+    motor.ChangeDutyCycle(35)
     time.sleep(0.1)
     pause()
 
