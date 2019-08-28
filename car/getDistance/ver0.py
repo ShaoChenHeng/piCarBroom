@@ -11,8 +11,7 @@ GPIO.setup(echo, GPIO.IN)
   
 def distance():
     # 发送高电平信号到 Trig 引脚
-    GPIO.output(trigger, True)
-  
+    GPIO.output(trigger, True) 
     # 持续 10 us 
     time.sleep(0.00001)
     GPIO.output(trigger, False)
@@ -33,10 +32,9 @@ def distance():
     timeElapsed = stopTime - startTime
     # 声波的速度为 343m/s， 转化为 34300cm/s。
     distance = (timeElapsed * 34300) / 2
-  
     return distance
-  
-if __name__ == '__main__':
+
+def showDistance():
     try:
         while True:
             dist = distance()
@@ -47,4 +45,8 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print("Measurement stopped by User")
         GPIO.cleanup()
+
+
+if __name__ == '__main__':
+    showDistance()    
 
