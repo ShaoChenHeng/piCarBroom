@@ -1,49 +1,48 @@
 from car.infra.infraControl import *
 from car.motor.motor_ctl import *
 from car.keyboard.keyboardInput import *
+from car.getDistance.ver0 import *
+
+def isSideBlock(num):
+    ans = GPIO.input(num)
+    if (ans == GPIO.LOW):
+        #默认设置正前方和左侧方遮挡顺时针旋转
+        if num == infraRightSide:
+            for i in range(0,6):
+                CCW()
+        else:
+            for i in range(0,6):
+                CW()
+        pause()
+        down()
+        pause()
+        time.sleep(0.2)
+        return isBlock(num)
+
+def isBlock(cnt):
+    if ( (infraLeft == GPIO.LOW and infraRight == GPIO.LOW ) or (infraLeftSide == GPIO.LOW and infraRightSide == GPIO.LOW) ):
+        for i in range(0,2):
+           down()
+        pause()
+        if cnt < 3:
+            cnt += 1
+            return isBlock( cnt )
+        else:
+            cnt = 0
+            for i in range(0,6):
+                CW()
+                return isBlock( cnt )
 
 def simpleGo():
-    n = 20
-    cal = 0
+    cnt = 0
     keyPress = ''
-    while ( n > 0 and keyPress != 't'):
+    # 没有按下 t 就一直自动驾驶
+    while ( keyPress != 't'):
         keyPress = kbhit()
-        inF = GPIO.input(infraFront)
-        inL = GPIO.input(infraLeft)
-        inB = GPIO.input(infraBack)
-        inR = GPIO.input(infraRight)
-        if ( inF == GPIO.LOW ):
-            for i in range(0,12):
-                CW()
-                pause()
-                time.sleep(0.1)
-            n = n - 1    
-            continue
-        if ( inL == GPIO.LOW ):
-            for i in range(0,5):
-                CW()
-                pause()
-                time.sleep(0.2)
-            n = n - 1
-            continue
-        if ( inR == GPIO.LOW ):
-            for i in range(0,5):
-                CCW()
-                pause()
-                time.sleep(0.2)
-            n = n - 1
-            continue
-        if ( inL == GPIO.LOW and inR == GPIO.LOW):
-            for i in range(0,20):
-                back
-                pause()
-                time.sleep(0.1)
-            for i in range(0,24):
-                CW()
-                pause()
-                time.sleep(0.2)
-            n = n - 1
-            continue 
+        isBlock(cnt)
+        isSideBlock(infraFront)
+        isSideBlock(infraLeftSide)
+        isSideBlock(infraRightSide)
         up()
         pause()
         time.sleep(0.2)
