@@ -1,11 +1,11 @@
 import RPi.GPIO as GPIO
 import time
-  
+from car.keyboard.keyboardInput import *
+
+
 GPIO.setmode(GPIO.BCM)
-  
 trigger = 25
 echo = 26
-  
 GPIO.setup(trigger, GPIO.OUT)
 GPIO.setup(echo, GPIO.IN)
   
@@ -38,15 +38,9 @@ def showDistance():
     try:
         while True:
             dist = distance()
-            print("Measured Distance = {:.2f} cm".format(dist))
+            print("Measured Distance = {:.2f} cm, press t or CTRL + C to quit".format(dist))
             time.sleep(1)
   
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
         print("Measurement stopped by User")
-        GPIO.cleanup()
-
-
-if __name__ == '__main__':
-    showDistance()    
-

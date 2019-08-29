@@ -40,8 +40,8 @@ def up():
     GPIO.output(IN2, GPIO.HIGH)
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN1, GPIO.LOW)
-    time.sleep(0.1)
     motor.ChangeDutyCycle(40)
+    time.sleep(0.1)
     pause()
     #GPIO.output(IN1,GPIO.LOW)
 
@@ -71,7 +71,7 @@ def down():
     GPIO.output(IN3, GPIO.HIGH)
     GPIO.output(IN1, GPIO.HIGH)
     motor.ChangeDutyCycle(55)
-    time.sleep(0.1)
+    time.sleep(0.2)
     pause()
 
 def turnRight1():

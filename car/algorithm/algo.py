@@ -3,21 +3,35 @@ from car.motor.motor_ctl import *
 from car.keyboard.keyboardInput import *
 from car.getDistance.ver0 import *
 
-def isSideBlock(num):
+def isBackBlock():
+    return GPIO.input(infraBack) == GPIO.LOW
+
+def is
+
+def isSideBlock(num,cnt):
     ans = GPIO.input(num)
+    if cnt >= 3:
+        #卡住了，前后无路
+        return
     if (ans == GPIO.LOW):
         #默认设置正前方和左侧方遮挡顺时针旋转
         if num == infraRightSide:
-            for i in range(0,6):
+            for i in range(0,2):
                 CCW()
         else:
-            for i in range(0,6):
+            for i in range(0,2):
                 CW()
         pause()
-        down()
+        # 检查是否卡死
+        if isBackBlock():
+            pause()
+            time.sleep(1)
+            cnt += 1
+        else:
+            down()
         pause()
         time.sleep(0.2)
-        return isBlock(num)
+        return isSideBlock(num, cnt)
 
 def isBlock(cnt):
     if ( (infraLeft == GPIO.LOW and infraRight == GPIO.LOW ) or (infraLeftSide == GPIO.LOW and infraRightSide == GPIO.LOW) ):
@@ -29,7 +43,7 @@ def isBlock(cnt):
             return isBlock( cnt )
         else:
             cnt = 0
-            for i in range(0,6):
+            for i in range(0,3):
                 CW()
                 return isBlock( cnt )
 
@@ -40,10 +54,9 @@ def simpleGo():
     while ( keyPress != 't'):
         keyPress = kbhit()
         isBlock(cnt)
-        isSideBlock(infraFront)
-        isSideBlock(infraLeftSide)
-        isSideBlock(infraRightSide)
+        isSideBlock(infraFront, 0)
+        isSideBlock(infraLeftSide, 0)
+        isSideBlock(infraRightSide, 0)
         up()
         pause()
         time.sleep(0.2)
-      

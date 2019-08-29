@@ -3,6 +3,7 @@ from car.infra.infraControl import *
 from car.keyboard.keyboardInput import *
 from car.motor.motor_ctl import *
 from car.algorithm.algo import *
+from car.getDistance.ver0 import *
 
 #待添加
     #LED交互
@@ -12,8 +13,6 @@ from car.algorithm.algo import *
     #路径规划主算法
 
 
-#根据键盘输入使小车做出相应运动
-#利用tkinter得到键盘输入
 def keyInput():
     keyPress = kbhit()
     if ( len(keyPress) > 0 ):
@@ -24,7 +23,7 @@ def keyInput():
     elif keyPress == 's':
         down()
     elif keyPress == 't':      #停止按钮
-        stop()
+        pause()
     elif keyPress == 'e':
         turnRight1()
     elif keyPress == 'c':
@@ -40,6 +39,7 @@ def keyInput():
     elif keyPress == 'm':
         simpleGo()    
     elif keyPress == '\x1b':   #退出按钮
+        GPIO.cleanup()
         exit()
 
 init()
