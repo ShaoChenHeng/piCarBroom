@@ -6,7 +6,12 @@ from car.getDistance.ver0 import *
 def isBackBlock():
     return GPIO.input(infraBack) == GPIO.LOW
 
-def is
+def sendSignal():
+    pass
+
+def isStuck():
+    #超声波获取距离，根据距离变化(方差计算)判断小车是否正在移动。
+    pass
 
 def isSideBlock(num,cnt):
     ans = GPIO.input(num)
