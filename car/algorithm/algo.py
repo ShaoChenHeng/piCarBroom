@@ -116,7 +116,7 @@ def selctDirection():
             # 因为前方使被挡住的（红外线被黑色吸收所以会是LOW，或者因为高度差）
             continue
         if i == '1':
-            print(vector.index(i))
+            print('direction is',vector.index(i))
             return vector.index(i)
     
     #四周都有阻挡就准备进行随机碰撞
@@ -133,17 +133,18 @@ def escape(esCount):
     # 完全被挡住了，随机碰撞找出路
     print("here")
     print("direction is %s"%direction)
-
+    ite = 0
     if direction ==  10000:
         print("start random escape...")
         #2000是超声装置被挡住的返回值，5以下也可以认为使前方仍有障碍
-        while ( distance() > 2000 or distance() < 5 ):
+        while ( ite == 0 or distance() > 2000 or distance() < 5 ):
             for i in range(0,3):
                 down()
             for i in range(0,3):
                 CCW()
             for i in range(0,3):
                 up()
+            ite += 1
             esCount += 1
             escape(esCount)
     else:
@@ -154,8 +155,9 @@ def escape(esCount):
             up()
         pause()
         print("here!!!")
-        if ( distance() > 2000 or distance() < 5 ):
+        if ( ite == 0 or distance() > 2000 or distance() < 5 ):
             print("remain stuck!")
+            ite += 1
             esCount += 1
             escape(esCount)
 
